@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #2d2e2e;
+    margin: 0;
+    padding: 0;
+}
+  
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #242222bd;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+  
+h1 {
+    text-align: center;
+    color: #007BFF;
+}
+  
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+  
+form input, form button {
+    flex: 1 1 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+  
+form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+  
+form button:hover {
+    background-color: #0056b3;
+}
+
+.task {
+    background: #f1f1f1;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column; /* Altera para coluna, assim os botões vão para baixo */
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+  
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px; /* Coloca uma margem entre a tarefa e os botões */
+}
+  
+.actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+  
+.actions button:nth-child(1) { background-color: #2196F3; color: white; } /* Editar */
+.actions button:nth-child(2) { background-color: #4CAF50; color: white; } /* Feito */
+.actions button:nth-child(3) { background-color: #79130c; color: white; } /* Remover */
+  
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+  
+.toast {
+    background-color: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeInOut 3s ease forwards;
+    font-size: 0.95rem;
+    max-width: 300px;
+}
+  
+.toast.success { background-color: #4CAF50; }
+.toast.info    { background-color: #2196F3; }
+.toast.error   { background-color: #79130c; }
+  
+@keyframes fadeInOut {
+    0%   { opacity: 0; transform: translateX(100%); }
+    10%  { opacity: 1; transform: translateX(0); }
+    90%  { opacity: 1; transform: translateX(0); }
+    100% { opacity: 0; transform: translateX(100%); }
+}  

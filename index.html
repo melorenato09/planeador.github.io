@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planeador</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/icon.png">
+</head>
+<body>
+  <div class="container">
+    <h1>Planeador</h1>
+
+    <form id="task-form">
+      <input type="text" id="tarefa" placeholder="O que vais fazer?" required>
+      <input type="date" id="data" required>
+      <input type="time" id="hora" required>
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <div class="task-list" id="task-list"></div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toast-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
