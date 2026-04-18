@@ -1,8 +1,8 @@
 const form = document.getElementById('task-form');
 const lista = document.getElementById('task-list');
-let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+let tarefas = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function mostrarNotificacao(msg, tipo = 'success') {
+function showNotification(msg, tipo = 'success') {
   const toast = document.createElement('div');
   toast.className = `toast ${tipo}`;
   toast.textContent = msg;
@@ -16,95 +16,93 @@ function mostrarNotificacao(msg, tipo = 'success') {
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
-  const tarefa = document.getElementById('tarefa').value;
-  const data = document.getElementById('data').value;
-  const hora = document.getElementById('hora').value;
+  const task = document.getElementById('task').value;
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
 
-  const novaTarefa = {
+  const newTask = {
     id: Date.now(),
-    texto: tarefa,
-    data: formatarData(data),  // Alterado
-    hora: formatarHora(hora),  // Alterado
+    texto: task,
+    date: formatDate(date),
+    time: formatTime(time),
     feita: false
   };
 
-  tarefas.push(novaTarefa);
-  salvarTarefas();
-  renderizarTarefas();
-  mostrarNotificacao("✅ Tarefa criada com sucesso!", "success");
+  tasks.push(newTask);
+  saveTasks();
+  renderTasks();
+  showNotification("✅ Task created successfully!", "success");
   form.reset();
 });
 
-function salvarTarefas() {
-  localStorage.setItem('tarefas', JSON.stringify(tarefas));
+function saveTasks() {
+  localStorage.setItem('tarefas', JSON.stringify(tasks));
 }
 
-function renderizarTarefas() {
-  lista.innerHTML = '';
-  tarefas.forEach(tarefa => {
+function renderTasks() {
+  list.innerHTML = '';
+  tasks.forEach(task => {
     const div = document.createElement('div');
     div.className = 'task';
-    if (tarefa.feita) div.classList.add('done');
+    if (task.feita) div.classList.add('done');
 
-    const conteudo = document.createElement('div');
-    conteudo.innerHTML = `<strong>${tarefa.data} às ${tarefa.hora}:</strong> ${tarefa.texto}`;
-    div.appendChild(conteudo);
+    const content = document.createElement('div');
+    content.innerHTML = `<strong>${task.date} às ${task.time}:</strong> ${task.text}`;
+    div.appendChild(content);
 
-    const acoes = document.createElement('div');
-    acoes.className = 'actions';
+    const actions = document.createElement('div');
+    actions.className = 'actions';
 
-    const btnEditar = document.createElement('button');
-    btnEditar.textContent = '✏️ Editar';
-    btnEditar.onclick = () => {
-      // Preencher os campos de edição com os valores atuais
-      document.getElementById('tarefa').value = tarefa.texto;
-      document.getElementById('data').value = formatarDataParaInput(tarefa.data); // Ajustar formato da data
-      document.getElementById('hora').value = tarefa.hora;
+    const btnEdit = document.createElement('button');
+    btnEdit.textContent = '✏️ Edit';
+    btnEdit.onclick = () => {
+      document.getElementById('tasks').value = tasks.text;
+      document.getElementById('date').value = formatarDataParaInput(tasks.date);
+      document.getElementById('time').value = tasks.time;
 
-      // Remover a tarefa original
-      tarefas = tarefas.filter(t => t.id !== tarefa.id);
-      salvarTarefas();
-      renderizarTarefas();
+      tasks = tasks.filter(t => t.id !== tasks.id);
+      saveTasks();
+      renderTasks();
     };
 
-    const btnFeito = document.createElement('button');
-    btnFeito.textContent = tarefa.feita ? '↩️ Desfazer' : '✅ Feito';
-    btnFeito.onclick = () => {
-      tarefa.feita = !tarefa.feita;
-      salvarTarefas();
-      renderizarTarefas();
+    const btnDone = document.createElement('button');
+    btnDone.textContent = task.done ? '↩️ Undo' : '✅ Done';
+    btnDone.onclick = () => {
+      task.done = !task.done;
+      saveTasks();
+      renderTasks();
     };
 
-    const btnRemover = document.createElement('button');
-    btnRemover.textContent = '❌ Remover';
-    btnRemover.onclick = () => {
-      tarefas = tarefas.filter(t => t.id !== tarefa.id);
-      salvarTarefas();
-      renderizarTarefas();
-      mostrarNotificacao("❌ Tarefa removida com sucesso!", "error");
+    const btnRemove = document.createElement('button');
+    btnRemove.textContent = '❌ Remove';
+    btnRemove.onclick = () => {
+      tasks = tasks.filter(t => t.id !== task.id);
+      saveTasks();
+      renderTasks();
+      showNotification("❌ Task successfully removed!", "error");
     };
 
-    acoes.appendChild(btnEditar);
-    acoes.appendChild(btnFeito);
-    acoes.appendChild(btnRemover);
-    div.appendChild(acoes);
+    actions.appendChild(btnEdit);
+    actions.appendChild(btnDone);
+    actions.appendChild(btnRemove);
+    div.appendChild(actions);
 
-    lista.appendChild(div);
+    list.appendChild(div);
   });
 }
 
-function formatarData(data) {
-  const [ano, mes, dia] = data.split('-');
-  return `${dia}/${mes}/${ano}`; // Formato dia/mês/ano
+function formatDate(date) {
+  const [year, month, day] = date.split('-');
+  return `${day}/${month}/${year}`; // Day/month/year format
 }
 
-function formatarDataParaInput(data) {
-  const [dia, mes, ano] = data.split('/');
-  return `${ano}-${mes}-${dia}`; // Formato para o input do tipo date
+function formatDateForInput(data) {
+  const [day, month, year] = data.split('/');
+  return `${year}-${month}-${day}`; // Format for date input
 }
 
-function formatarHora(hora) {
-  const [h, m] = hora.split(':');
+function formatTime(hour) {
+  const [h, m] = hour.split(':');
   return `${h}:${m}`; // Mantém o formato 24h
 }
 
