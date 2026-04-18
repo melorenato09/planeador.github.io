@@ -28,7 +28,7 @@ form.addEventListener('submit', function(e) {
     feita: false
   };
 
-  tasks.push(newTask);
+  task.push(newTask);
   saveTasks();
   renderTasks();
   showNotification("✅ Task created successfully!", "success");
