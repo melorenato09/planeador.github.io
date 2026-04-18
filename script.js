@@ -1,6 +1,6 @@
 const form = document.getElementById('task-form');
-const lista = document.getElementById('task-list');
-let tarefas = JSON.parse(localStorage.getItem('tasks')) || [];
+const list = document.getElementById('task-list');
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function showNotification(msg, tipo = 'success') {
   const toast = document.createElement('div');
@@ -28,7 +28,7 @@ form.addEventListener('submit', function(e) {
     feita: false
   };
 
-  task.push(newTask);
+  tasks.push(newTask);
   saveTasks();
   renderTasks();
   showNotification("✅ Task created successfully!", "success");
