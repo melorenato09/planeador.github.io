@@ -106,4 +106,4 @@ function formatTime(hour) {
   return `${h}:${m}`; // Mantém o formato 24h
 }
 
-renderizarTarefas();
+renderTasks();
