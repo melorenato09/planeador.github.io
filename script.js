@@ -2,9 +2,9 @@ const form = document.getElementById('task-form');
 const list = document.getElementById('task-list');
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-function showNotification(msg, tipo = 'success') {
+function showNotification(msg, type = 'success') {
   const toast = document.createElement('div');
-  toast.className = `toast ${tipo}`;
+  toast.className = `toast ${type}`;
   toast.textContent = msg;
 
   document.getElementById('toast-container').appendChild(toast);
@@ -36,7 +36,7 @@ form.addEventListener('submit', function(e) {
 });
 
 function saveTasks() {
-  localStorage.setItem('tarefas', JSON.stringify(tasks));
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 function renderTasks() {
@@ -57,7 +57,7 @@ function renderTasks() {
     btnEdit.textContent = '✏️ Edit';
     btnEdit.onclick = () => {
       document.getElementById('tasks').value = tasks.text;
-      document.getElementById('date').value = formatarDataParaInput(tasks.date);
+      document.getElementById('date').value = formatDateForInput(tasks.date);
       document.getElementById('time').value = tasks.time;
 
       tasks = tasks.filter(t => t.id !== tasks.id);
