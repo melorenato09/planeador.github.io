@@ -44,10 +44,10 @@ function renderTasks() {
   tasks.forEach(task => {
     const div = document.createElement('div');
     div.className = 'task';
-    if (task.feita) div.classList.add('done');
+    if (task.done) div.classList.add('done');
 
     const content = document.createElement('div');
-    content.innerHTML = `<strong>${task.date} às ${task.time}:</strong> ${task.text}`;
+    content.innerHTML = `<strong>${task.date} to ${task.time}:</strong> ${task.text}`;
     div.appendChild(content);
 
     const actions = document.createElement('div');
@@ -96,8 +96,8 @@ function formatDate(date) {
   return `${day}/${month}/${year}`; // Day/month/year format
 }
 
-function formatDateForInput(data) {
-  const [day, month, year] = data.split('/');
+function formatDateForInput(date) {
+  const [day, month, year] = date.split('/');
   return `${year}-${month}-${day}`; // Format for date input
 }
 
