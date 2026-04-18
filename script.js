@@ -22,10 +22,10 @@ form.addEventListener('submit', function(e) {
 
   const newTask = {
     id: Date.now(),
-    texto: task,
+    text: task,
     date: formatDate(date),
     time: formatTime(time),
-    feita: false
+    done: false
   };
 
   tasks.push(newTask);
@@ -56,11 +56,11 @@ function renderTasks() {
     const btnEdit = document.createElement('button');
     btnEdit.textContent = '✏️ Edit';
     btnEdit.onclick = () => {
-      document.getElementById('tasks').value = tasks.text;
-      document.getElementById('date').value = formatDateForInput(tasks.date);
-      document.getElementById('time').value = tasks.time;
+      document.getElementById('task').value = task.text;
+      document.getElementById('date').value = formatDateForInput(task.date);
+      document.getElementById('time').value = task.time;
 
-      tasks = tasks.filter(t => t.id !== tasks.id);
+      tasks = tasks.filter(t => t.id !== task.id);
       saveTasks();
       renderTasks();
     };
@@ -103,7 +103,7 @@ function formatDateForInput(date) {
 
 function formatTime(hour) {
   const [h, m] = hour.split(':');
-  return `${h}:${m}`; // Mantém o formato 24h
+  return `${h}:${m}`; // It retains the 24-hour format
 }
 
 renderTasks();
